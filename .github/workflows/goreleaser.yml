@@ -5,6 +5,8 @@ on:
     tags:
       - "*"
 
+permissions: read-all|write-all
+
 jobs:
   goreleaser:
     runs-on: ubuntu-latest
