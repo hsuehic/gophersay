@@ -3,12 +3,18 @@ package main
 import (
 	"fmt"
 	gopher "github/hsuehic/gophersay/gophers"
+	"image/color"
 	"log"
 	"math/rand"
 	"os"
 	"strconv"
 	"strings"
 	"time"
+
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/canvas"
+	"fyne.io/fyne/v2/container"
 
 	"embed"
 )
@@ -20,6 +26,24 @@ import (
 var embedGopherFiles embed.FS
 
 func main() {
+	application := app.New()
+	win := application.NewWindow("Gophersay")
+
+	str := "Gopher"
+	text := canvas.NewText(str, color.Black)
+	text.Alignment = fyne.TextAlignCenter
+
+	buffer, _ := embedGopherFiles.ReadFile("gophers/1.png")
+	res := fyne.NewStaticResource("gopher", buffer)
+	img := canvas.NewImageFromResource(res)
+	img.SetMinSize(fyne.NewSize(500, 500))
+
+	box := container.NewVBox(text, img)
+	win.SetContent(box)
+	win.ShowAndRun()
+}
+
+func say() {
 
 	// Display usage/help message
 	if len(os.Args) == 1 || (len(os.Args) == 2 && os.Args[1] == "-h") || (len(os.Args) == 2 && os.Args[1] == "--help") {

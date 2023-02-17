@@ -15,3 +15,18 @@ tasks:
     desc: Clean the build
     cmds:
       - rm -rf dist
+  package:
+    desc: Build the app for current OS
+    cmds:
+      # - GOFLAGS=-mod=mod go build -o bin/gopher-desktop main.go
+      - fyne package -icon gopher.png
+
+  package-android:
+    desc: Package the app for Android
+    cmds:
+      - fyne package -appID com.gistop.gopher -icon gopher.png --release --target=android/amd64
+
+  package-ios:
+    desc: Package the app for iOS
+    cmds:
+      - fyne package -os ios -appID gophersay.gistop.com -icon gopher.png -certificate Gistop
